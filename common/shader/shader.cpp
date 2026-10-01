@@ -7,10 +7,10 @@
 #include <sstream>
 #include <string>
 
-Shader::Shader(const char *vertexPath, const char *fragmentPath) {
+Shader::Shader(const char* vertexPath, const char* fragmentPath) {
     // 1. retrieve the vertex and fragment shader source code from filePath
-    std::string vertexShader;
-    std::string fragmentShader;
+    std::string   vertexShader;
+    std::string   fragmentShader;
     std::ifstream vShaderFile;
     std::ifstream fShaderFile;
 
@@ -29,18 +29,18 @@ Shader::Shader(const char *vertexPath, const char *fragmentPath) {
         fShaderStream << fShaderFile.rdbuf();
 
         // convert stream into string
-        vertexShader = vShaderStream.str();
+        vertexShader   = vShaderStream.str();
         fragmentShader = fShaderStream.str();
     } catch (std::ifstream::failure e) {
         std::cout << "ERROR:SHADER::FILE_NOT_SUCCESSFULLY_READ" << std::endl;
     }
-    const char *vShaderCode = vertexShader.c_str();
-    const char *fShaderCode = fragmentShader.c_str();
+    const char* vShaderCode = vertexShader.c_str();
+    const char* fShaderCode = fragmentShader.c_str();
 
     // 2. Compile and link shaders
     unsigned int vertex, fragment;
-    int success;
-    char infolog[512];
+    int          success;
+    char         infolog[512];
 
     // vertex shader
     vertex = glCreateShader(GL_VERTEX_SHADER);
@@ -88,14 +88,14 @@ void Shader::use() {
     glUseProgram(ID);
 }
 
-void Shader::setBool(const std::string &name, bool value) const {
+void Shader::setBool(const std::string& name, bool value) const {
     glUniform1i(glGetUniformLocation(ID, name.c_str()), (int)value);
 }
 
-void Shader::setInt(const std::string &name, int value) const {
+void Shader::setInt(const std::string& name, int value) const {
     glUniform1i(glGetUniformLocation(ID, name.c_str()), value);
 }
 
-void Shader::setFloat(const std::string &name, float value) const {
+void Shader::setFloat(const std::string& name, float value) const {
     glUniform1f(glGetUniformLocation(ID, name.c_str()), value);
 }
