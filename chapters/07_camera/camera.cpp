@@ -9,16 +9,22 @@
 #include <camera/camera.h>
 #include <shader/shader.h>
 #include <stb_image/stb_image.h>
+#include <window/glfw_window.h>
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void process_input(GLFWwindow* window);
 
-const int WINDOW_WIDTH  = 800;
-const int WINDOW_HEIGHT = 600;
+const int WINDOW_WIDTH         = 800;
+const int WINDOW_HEIGHT        = 600;
+const int OPENGL_VERSION_MAJOR = 4;
+const int OPENGL_VERSION_MINOR = 6;
 
 float mix_attenuation = 0.0f;
+
+// Initial Window setup
+CustomGLFWWindow custom_window = CustomGLFWWindow(WINDOW_WIDTH, WINDOW_HEIGHT, OPENGL_VERSION_MAJOR, OPENGL_VERSION_MINOR, "Learn OpenGL");
 
 // Initial Camera setup
 Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
@@ -31,15 +37,9 @@ float delta_time = 0.0f;
 float last_frame = 0.0f;
 
 int main() {
-    glfwInit();
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    GLFWwindow* window = custom_window.window;
 
-    GLFWwindow* window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "LearnOpenGL", NULL, NULL);
-    if (window == NULL) {
-        std::cout << "Failed to create GLFW window" << std::endl;
-        glfwTerminate();
+    if (custom_window.validate_window() != 0) {
         return -1;
     }
 
