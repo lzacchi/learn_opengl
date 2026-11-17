@@ -7,9 +7,9 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include <camera/camera.h>
+#include <glfw_window/glfw_window.h>
 #include <shader/shader.h>
 #include <stb_image/stb_image.h>
-#include <window/glfw_window.h>
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -24,7 +24,7 @@ const int OPENGL_VERSION_MINOR = 6;
 float mix_attenuation = 0.0f;
 
 // Initial Window setup
-CustomGLFWWindow custom_window = CustomGLFWWindow(WINDOW_WIDTH, WINDOW_HEIGHT, OPENGL_VERSION_MAJOR, OPENGL_VERSION_MINOR, "Learn OpenGL");
+GLFWWindow custom_window = GLFWWindow(WINDOW_WIDTH, WINDOW_HEIGHT, OPENGL_VERSION_MAJOR, OPENGL_VERSION_MINOR, "Learn OpenGL");
 
 // Initial Camera setup
 Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
